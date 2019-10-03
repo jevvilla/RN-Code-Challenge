@@ -1,5 +1,5 @@
 import React, { PureComponent } from 'react';
-import { View, Text, TouchableOpacity, TextInput } from 'react-native';
+import { View, Text, TouchableOpacity, TextInput, ActivityIndicator } from 'react-native';
 import PropTypes from 'prop-types';
 import Icon from 'react-native-vector-icons/Ionicons';
 import { debounce, isEmpty } from 'lodash';
@@ -116,7 +116,19 @@ class Overview extends PureComponent {
 
     return (
       <View style={styles.container}>
-        <CocktailsCardList data={data} navigation={navigation} />
+        {!isEmpty(data) ? (
+          <CocktailsCardList data={data} navigation={navigation} />
+        ) : (
+          <View style={styles.loading}>
+            {isEmpty(textToSearch) ? (
+              <ActivityIndicator color={colors.white} />
+            ) : (
+              <Text style={styles.noResultsMessage}>{`${
+                strings.NO_SEARCH_RESULTS
+              } ${textToSearch}`}</Text>
+            )}
+          </View>
+        )}
       </View>
     );
   }
