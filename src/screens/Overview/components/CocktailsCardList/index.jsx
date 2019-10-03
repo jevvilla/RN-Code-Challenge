@@ -10,6 +10,8 @@ import { getFilteredIngredients, getIngredientsAndMeasurements } from '../../../
 
 import styles from './styles';
 
+const ITEM_HEIGHT = 180;
+
 class CocktailsCardList extends PureComponent {
   navigate = item => {
     const { navigation } = this.props;
@@ -47,6 +49,8 @@ class CocktailsCardList extends PureComponent {
 
   keyExtractor = item => item.idDrink;
 
+  getItemLayout = (data, index) => ({ length: ITEM_HEIGHT, offset: ITEM_HEIGHT * index, index });
+
   render() {
     const { data } = this.props;
 
@@ -57,6 +61,7 @@ class CocktailsCardList extends PureComponent {
         keyExtractor={this.keyExtractor}
         renderItem={this.renderItem}
         showsVerticalScrollIndicator={false}
+        getItemLayout={this.getItemLayout}
       />
     );
   }
